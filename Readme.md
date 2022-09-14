@@ -1,24 +1,24 @@
 # Тестирование Stripe
 
-### Данная работа развернута по адресу []() с использованием Docker, docker-compose и nginx. Подробнее можно посмотреть в ветке develop.
+### Данный проект развернут по адресу [176.119.158.224](http://176.119.158.224), для входа в админку admin/admin.
 
-### Для локального запуска и тестирования работы вам потребуется Docker. Выполните следующие команды:
+### Для локального запуска и тестирования проекта вам потребуется Docker, аккаунт в сервисе Stripe с данными Publishable key и Secret key. Во время запуска проекта в базу будут загружены тестовые данные из `items_data.json`.
+
+##### Выполните следующие команды:
 1. Клонируйте репозиторий:
 `git clone `
-2. Соберите образ из докерфайла:
-`sudo docker build -t test-stripe .`
-3. Запустите контейнер на основе образа:
-`sudo docker run -d --name test-stripe -it -p 8000:8000 test-stripe`
-4. Примените миграции:
-`sudo docker container exec -it test-stripe python manage.py migrate`
-5. Загрузите тестовые данные в базу:
-`sudo docker container exec -it test-stripe python manage.py upload_items`
-6. Создайте суперпользователя:
-`sudo docker container exec -it test-stripe python manage.py createsuperuser`
-7. Соберите статику:
-`sudo docker container exec -it test-stripe python manage.py collectstatic`
-8. Проект будет доступен по адресу [http://localhost:8000/](http://localhost:8000/)
+2. Перейдите в каталог Test-Stripe:
+`cd Test-Stripe`
+3. Создайте .env со следующими данными:
+`SECRET_KEY=YOUR_DJANGO_SECRET_KEY`
+`STRIPE_API_KEY=Publishable_key`
+`STRIPE_PUBLIC_KEY=Secret key`
+4. Запустите проект:
+`sudo docker compose up -d --build`
+5. Создайте суперпользователя:
+`sudo docker compose exec backend python manage.py createsuperuser`
+8. Проект будет доступен по адресу [http://localhost/](http://localhost/)
 
-### В данной работе вам доступны следующие эндпоинты:
+### В данном проекте вам доступны следующие эндпоинты:
 - /items/ - Список достпуных итемов
 - /item/id/ - Страница итема с возможностью покупки или добавления в корзину

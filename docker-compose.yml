@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  
+  backend:
+    build: .
+    command: >
+      sh -c "python manage.py collectstatic --noinput &&
+             python manage.py migrate &&
+             python manage.py upload_items &&
+             gunicorn test_stripe.wsgi:application --bind 0:8000"
+    restart: always
+    volumes:
+      - static_value:/app/static/
+    env_file:
+      - .env
+
+  nginx:
+    image: nginx:1.19.3
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - static_value:/var/html/static/
+    restart: always
+    depends_on:
+      - backend
+
+volumes:
+  static_value:
+  media_value:

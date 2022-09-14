@@ -11,7 +11,11 @@ SECRET_KEY = getenv('SECRET_KEY', default='django-insecure-%%pt@e^sq^s#m(n6fw1a1
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'backend',
+    'localhost',
+    '127.0.0.1'
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -88,3 +92,5 @@ STATIC_URL = 'static/'
 STATIC_ROOT = path.join(BASE_DIR, 'static/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_TRUSTED_ORIGINS = ['http://localhost', 'http://backend']
