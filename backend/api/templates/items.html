@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>Items</title>
+  </head>
+  <body>
+    <h1>Items</h1>
+    <hr>
+    {% for item in items %}
+      <p>
+        {{ item.name }}<br>
+        Price: {{ item.price }}
+
+        <a name="{{ item.name }}" href="{% url 'item_detail' item.id %}"><button id="buy-button">Buy</button></a>
+      </p>
+    {% endfor %}
+  </body>
+</html>
